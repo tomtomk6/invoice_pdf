@@ -1,6 +1,8 @@
 from fpdf import FPDF
 
 class PDF(FPDF):
+
+    # sets header and introduction
     def header(self):
         self.set_margins(25.0, 5.0, 25.0)
         self.set_line_width(0.0)
@@ -9,10 +11,12 @@ class PDF(FPDF):
         self.set_font('Arial', 'U', 8)
         self.cell(w=210.0, h=40.0, align='L', txt="Tom Klaube - Beratung Online Marketing | Straße Hausnummer | 12345 Frankfurt", border=0)
 
+    # sets logo in upper right-hand-corner
     def logo(self):
         self.set_xy(155.0, 20.0)
         self.image("logo.png",  link="", w=40, h=40)
 
+    # sets address of debitor
     def address(self):
         self.set_xy(25.0, 25.0)
         self.set_font('Arial', "", 12)
@@ -22,30 +26,36 @@ class PDF(FPDF):
         self.set_xy(25.0, 35.0)
         self.cell(w=30.0, h=40.0, align='L', txt="12345 Frankfurt", border=0)
 
+    # sets date of invoice
     def date(self):
         self.set_xy(155.0, 45.0)
         self.cell(w=30.0, h=40.0, align='L', txt="Datum: 17.04.2021", border=0)
 
+    # sets number of invoice
     def invoice_number(self):
         self.set_xy(25.0, 85.0)
         self.set_font('Arial', "B", 12)
         self.write(5,"Rechnung Nr. XX-X-XXXXXXXX")
 
+    # sets introduction with greeting
     def introduction(self):
         self.set_xy (25.0, 95.0)
         self.set_font('Arial', "", 12)
         self.write(5,"Sehr geehrte Damen und Herren,")
 
+    # sets introduction text with related date range of invoice
     def introduction_text(self):
         self.set_xy (25.0, 105.0)
         self.set_font('Arial', "", 12)
         self.write(5, "für meine freie Mitarbeit darf ich Ihnen für den Zeitraum 01.01. - 31.01.2021 folgenden Betrag in Rechnung stellen:")
 
+    # sets table header
     def table_header(self):
         self.set_xy (25.0, 110.0)
         self.set_font("Arial", "BU", 10)
         self.cell(w=200.0, h=40.0, align='L', txt="Nr.                  Bezeichnung                         Menge                   Einheit in EUR                  Gesamt in EUR", border=0)
 
+    # sets invoice items - could be dynamized later
     def table_entries(self):
         self.set_font("Arial", "", 12)
         self.set_xy (25.0, 135.0)
@@ -68,6 +78,7 @@ class PDF(FPDF):
         self.x = self.x + 150
         self.multi_cell(40,5,'XX,XX',0,0)
 
+    # sets net sum without VAT, could be dynamized later
     def sum_net(self):
         self.set_xy (90.0, 150.0)
         top = self.y
@@ -76,6 +87,7 @@ class PDF(FPDF):
         self.x = self.x + 135
         self.multi_cell(35,5,'XX,XX EUR',0,'R')
 
+    # sets vat sum, could be dynamized later
     def sum_vat(self):
         self.set_xy (90.0, 160.0)
         top = self.y
@@ -84,6 +96,7 @@ class PDF(FPDF):
         self.x = self.x + 135
         self.multi_cell(35,5,'XX,XX EUR',0,'R')
 
+    # sets total sum_ could be dynamized later
     def sum_total(self):
         self.set_font("Arial", "B", 12)
         self.set_xy (90.0, 170.0)
@@ -93,19 +106,23 @@ class PDF(FPDF):
         self.x = self.x + 135
         self.multi_cell(35,5,'XX,XX EUR',0,'R')
 
+    # sets outroduction text
     def outroduction_text(self):
         self.set_xy (25.0, 190.0)
         self.set_font('Arial', "", 12)
         self.write(5, "Bitte überweisen Sie den Rechnungsbetrag innerhalb von 30 Tagen auf das untenstehende Konto.")
 
+    # sets greeting
     def greeting_text(self):
         self.set_xy (25.0, 210.0)
         self.write(5, "Mit freundlichen Grüßen")
 
+    # sets name
     def greeting(self):
         self.set_xy (25.0, 220.0)
         self.write(5, "Tom Klaube")
 
+    # sets footer information
     def footer(self):
         self.set_font("Arial", "", 10)
         self.set_xy (25.0, 255.0)
@@ -157,11 +174,7 @@ class PDF(FPDF):
         self.y = top
         self.x = self.x + 90
         self.multi_cell(60,5,'XXXXXXXXXX',0,0)
-
-    
-
-        
-
+     
 pdf = PDF(orientation="P", unit="mm", format="A4")
 pdf.add_page()
 pdf.header()
